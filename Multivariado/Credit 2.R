@@ -5,7 +5,7 @@ library(cluster)
 library(readxl)
 
 #################################################################################
-setwd("D:/MATEM�TICA/M�todos estad�sticos multivariados")
+setwd("D:/MATEMÁTICA/Métodos estadísticos multivariados")
 
 Credit <- read.csv("Credit.csv", header = TRUE)
 
@@ -17,7 +17,7 @@ Data_mfa <- Credit_1
 Data_mfa <- Data_mfa[, c("Seniority","Mean.of.mouvements","Cumulative.debits","Age.of.client", "Family.Situation","Profession","Home.of.employee","Size.of.savings","Active.mean","Type.of.client","Checkbook.not.allowed","overdraft.authorized")]
 
 # Ejecutar el an??lisis MFA
-res.mfa <- MFA(Data_mfa, group = c(3, 3, 3, 3), type = c(rep("n", 4)), ind.sup = NULL, name.group = c("Transaccional", "Personal", "Ingresos/Riqueza", "Relación banco"), num.group.sup = NULL, graph = TRUE)
+res.mfa <- MFA(Data_mfa, group = c(3, 3, 3, 3), type = c(rep("n", 4)), ind.sup = NULL, name.group = c("Transaccional", "Personal", "Ingresos/Riqueza", "RelaciÃ³n banco"), num.group.sup = NULL, graph = TRUE)
 
 # Obtener los resultados del analisis MFA
 summary(res.mfa)
