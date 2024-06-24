@@ -1,5 +1,5 @@
 # Instalar las libreria
-install.packages("tm")  # mineri�a de texto
+install.packages("tm")  # mineri­a de texto
 install.packages("SnowballC") # text stemming (ingles)
 install.packages("wordcloud") # nube de palabras
 install.packages("RColorBrewer") # paletas de colores
@@ -52,7 +52,7 @@ findFreqTerms(dtm, lowfreq = 20)
 findAssocs(dtm, terms="amor", corlimit = 0.2)
 
 
-#Sim embargo, aun esta la duda sobre dtm, asi� que la transformaremos para entender dicho objeto.
+#Sim embargo, aun esta la duda sobre dtm, asi­ que la transformaremos para entender dicho objeto.
 m <- as.matrix(dtm)
 
 m1<-as.data.frame(m)
@@ -71,14 +71,14 @@ barplot(d[1:20,]$freq, las = 2, names.arg = d[1:20,]$word,
         col ="lightblue", main ="Palabras frecuentes",
         ylab = "Frecuencia")
 
-# Vemos que la palabra "que" aparece muchas veces, esto es de esperarse, por su frecuencia de uso en espa�ol. Finalmente veamos la nube de palabras.
+# Vemos que la palabra "que" aparece muchas veces, esto es de esperarse, por su frecuencia de uso en español. Finalmente veamos la nube de palabras.
 set.seed(1234)
 wordcloud(words = d$word, freq = d$freq, min.freq = 12,
           max.words=200, random.order=FALSE, rot.per=0.35, 
           colors=brewer.pal(12, "Paired"))
 
 
-# Finalmente, usaremos las herramientas de análisis sobre el texto.
+# Finalmente, usaremos las herramientas de anÃ¡lisis sobre el texto.
 findFreqTerms(dtm, lowfreq = 3)
 findAssocs(dtm, terms="plataforma", corlimit = 0.2)
 findAssocs(dtm, terms="problema", corlimit = 0.2)
