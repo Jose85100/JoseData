@@ -3,16 +3,16 @@ library(readxl)
 library("factoextra")
 #install.packages(c("FactoMineR","readxl","factoextra"))
 
-setwd("D:/INVESTIGACI覰")
+setwd("D:/INVESTIGACI脫N")
 
-Empresa_cualit <- read_excel("D:/INVESTIGACI覰/Empresa_cualit.xlsx")
-Empresa <- read_excel("D:/INVESTIGACI覰/Empresa.xlsx")
+Empresa_cualit <- read_excel("D:/INVESTIGACI脫N/Empresa_cualit.xlsx")
+Empresa <- read_excel("D:/INVESTIGACI脫N/Empresa.xlsx")
 
 types <- sapply(General, typeof)
 print(types)
 
 #################################################################################################################################################
-#An醠isis Factorial M鷏tiple de las empresas
+#An谩lisis Factorial M煤ltiple de las empresas
 Mulfactor<-MFA (Empresa, group=c(8,3), type = c("n","s"), ncp = 5, name.group = NULL, graph = TRUE,row.w = NULL, axes = c(2,3), tab.comp=NULL)
 
 eig.val <- get_eigenvalue(Mulfactor)
@@ -114,7 +114,7 @@ fviz_screeplot(uni.mca, addlabels = TRUE, ylim = c(0, 15)) + geom_hline(yinterce
 
 fviz_mca_biplot(uni.mca, repel = TRUE, 
                 ggtheme = theme_grey())+labs(
-                  title ="           Representaci髇 simultanea de los individuos y las categor韆s")
+                  title ="           Representaci贸n simultanea de los individuos y las categor铆as")
 
 var <- get_mca_var(uni.mca)
 var
@@ -127,21 +127,21 @@ fviz_mca_var(uni.mca, choice = "mca.cor",
 pander(head(var$cos2, 15))
 
 fviz_mca_var(uni.mca, col.var = "purple", shape.var = 10, repel = TRUE,
-             ggtheme = theme_grey())+labs(title = "                     Nube de puntos de las Modalidades/Categor韆s")
+             ggtheme = theme_grey())+labs(title = "                     Nube de puntos de las Modalidades/Categor铆as")
 
 
-fviz_cos2(uni.mca, choice = "var", axes = 1:2)+labs(title = "Cos2 de Categor韆s para las Dimensiones 1-2")
+fviz_cos2(uni.mca, choice = "var", axes = 1:2)+labs(title = "Cos2 de Categor铆as para las Dimensiones 1-2")
 
 
 corrplot(var$cos2, is.corr = FALSE)
 
 pander(head(round(var$contrib,2), 15))
 
-fviz_contrib(uni.mca, choice = "var", axes = 1, top = 15)+labs(title = "Contribuci髇 de las Categor韆s para las Dimensi髇 1")
+fviz_contrib(uni.mca, choice = "var", axes = 1, top = 15)+labs(title = "Contribuci贸n de las Categor铆as para las Dimensi贸n 1")
 
-fviz_contrib(uni.mca, choice = "var", axes = 2, top = 15)+labs(title = "Contribuci髇 de las Categor韆s para las Dimensi髇 2")
+fviz_contrib(uni.mca, choice = "var", axes = 2, top = 15)+labs(title = "Contribuci贸n de las Categor铆as para las Dimensi贸n 2")
 
-fviz_contrib(uni.mca, choice = "var", axes = 1:2, top = 15)+labs(title = "Contribuciones de las Categor韆s para las Dimensi髇es 1-2")
+fviz_contrib(uni.mca, choice = "var", axes = 1:2, top = 15)+labs(title = "Contribuciones de las Categor铆as para las Dimensi贸nes 1-2")
 
 fviz_mca_var(uni.mca, col.var = "contrib", 
              gradient.cols = c("#00AFBB", "#E7B800","#FC4E07"),
@@ -162,7 +162,7 @@ fviz_mca_ind(uni.mca, col.ind = "cos2",
 
 tail(est$contrib)
 
-fviz_cos2 (uni.mca, choice = "ind", axes = 1:2, top = 50)+labs(title = "Cos2 de los individuos para las Dimensi髇es 1-2")
+fviz_cos2 (uni.mca, choice = "ind", axes = 1:2, top = 50)+labs(title = "Cos2 de los individuos para las Dimensi贸nes 1-2")
 
 fviz_mca_ind(uni.mca,
             label = "none",
@@ -179,10 +179,10 @@ uni.desc <- dimdesc(uni.mca, axes = c(1,2))
 #Prueba de hipotesis:
 
 #H0: La variable o clasificacion no es caracteristica en la dimension
-#H1: La variable o clasificacion es caracteristica en la dimensi髇
+#H1: La variable o clasificacion es caracteristica en la dimensi贸n
 
 
-#Descripcion de la primera dimensi髇
+#Descripcion de la primera dimensi贸n
 
 uni.desc[[1]]
 uni.desc[[2]]
