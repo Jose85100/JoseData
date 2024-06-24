@@ -1,9 +1,9 @@
-setwd("E:/MATEM¡TICA/MÈtodos estadÌsticos multivariados")
+setwd("E:/MATEM√ÅTICA/M√©todos estad√≠sticos multivariados")
 library(FactoMineR)
 library(readr)
 
 library(readr)
-DatosAseguradora <- read_delim("E:/MATEM¡TICA/MÈtodos estadÌsticos multivariados/DatosAseguradora.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
+DatosAseguradora <- read_delim("E:/MATEM√ÅTICA/M√©todos estad√≠sticos multivariados/DatosAseguradora.txt",delim = "\t", escape_double = FALSE, trim_ws = TRUE)
 DatosAseguradora=DatosAseguradora[,-1]
 attach(DatosAseguradora)
 res<-MCA(DatosAseguradora, ncp = 5, ind.sup = NULL, quanti.sup = NULL, graph = TRUE,axes = c(1,2))
