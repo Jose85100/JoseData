@@ -5,23 +5,23 @@ install.packages("tokenizers")
 library(tidyverse)
 library(tokenizers)
 
-texto <- paste("También entiendo que como es temporada de elecciones, 
-las expectativas para lo que lograremos este año son bajas. 
-Aún así, señor Presidente de la Cámara de Representantes, 
-aprecio el enfoque constructivo que usted y los otros líderes adoptaron 
-a finales del año pasado para aprobar un presupuesto, 
+texto <- paste("TambiÃ©n entiendo que como es temporada de elecciones, 
+las expectativas para lo que lograremos este aÃ±o son bajas. 
+AÃºn asÃ­, seÃ±or Presidente de la CÃ¡mara de Representantes, 
+aprecio el enfoque constructivo que usted y los otros lÃ­deres adoptaron 
+a finales del aÃ±o pasado para aprobar un presupuesto, 
 y hacer permanentes los recortes de impuestos para las 
-familias trabajadoras. Así que espero que este año podamos trabajar 
+familias trabajadoras. AsÃ­ que espero que este aÃ±o podamos trabajar 
 juntos en prioridades bipartidistas como la reforma de la justicia penal 
-y ayudar a la gente que está luchando contra la adicción a fármacos 
-de prescripción. Tal vez podamos sorprender de nuevo a los cínicos.")
+y ayudar a la gente que estÃ¡ luchando contra la adicciÃ³n a fÃ¡rmacos 
+de prescripciÃ³n. Tal vez podamos sorprender de nuevo a los cÃ­nicos.")
 
 # Dividir el texto en palabras individuales.
 palabras <- tokenize_words(texto)
 
-#Ha eliminado todos los signos de puntuación, 
+#Ha eliminado todos los signos de puntuaciÃ³n, 
 #ha dividido el texto en palabras individuales 
-#y ha convertido todo a minúsculas
+#y ha convertido todo a minÃºsculas
 palabras
 
 # Longitud
@@ -94,9 +94,9 @@ palabras <- tokenize_words(texto)
 sapply(palabras, length)
 
 
-qplot(metadatos$year, sapply(palabras, length)) + labs(x = "Año", y = "Número de palabras")
+qplot(metadatos$year, sapply(palabras, length)) + labs(x = "AÃ±o", y = "NÃºmero de palabras")
 
-qplot(metadatos$year, sapply(palabras, length), color = metadatos$sotu_type) + labs(x = "Año", y = "Número de palabras", color = "Modalidad del discurso")
+qplot(metadatos$year, sapply(palabras, length), color = metadatos$sotu_type) + labs(x = "AÃ±o", y = "NÃºmero de palabras", color = "Modalidad del discurso")
 
 oraciones <- tokenize_sentences(texto)
 oraciones_palabras <- sapply(oraciones, tokenize_words)
@@ -108,8 +108,8 @@ longitud_oraciones[[i]] <- sapply(oraciones_palabras[[i]], length)
 
 media_longitud_oraciones <- sapply(longitud_oraciones, median)
 
-qplot(metadatos$year, media_longitud_oraciones) + labs(x = "Año", y = "Longitud media de las oraciones")
-qplot(metadatos$year, media_longitud_oraciones) + geom_smooth() + labs(x = "Año", y = "Longitud media de las oraciones")
+qplot(metadatos$year, media_longitud_oraciones) + labs(x = "AÃ±o", y = "Longitud media de las oraciones")
+qplot(metadatos$year, media_longitud_oraciones) + geom_smooth() + labs(x = "AÃ±o", y = "Longitud media de las oraciones")
 
 descripcion <- c()
 for (i in 1:length(palabras)) {
