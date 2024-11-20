@@ -1,5 +1,5 @@
 # Simulación Económica con Agente Inteligente
-
+# Jose Gabriel Orosco
 Este proyecto implementa una simulación económica donde un agente inteligente toma decisiones relacionadas con las tasas de interés y optimiza el estado de la economía mediante el uso de diferentes algoritmos, incluyendo A*, DFS, BFS, y algoritmos genéticos. La simulación utiliza modelos macroeconómicos y factores como el PIB, tasas de interés, consumo y gasto público para generar predicciones y optimizar decisiones económicas.
 
 ## Estructura del Proyecto
