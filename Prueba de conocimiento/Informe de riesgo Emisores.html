@@ -1,0 +1,1754 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informe de Evaluación de Riesgo Crediticio - Emisores Bancarios</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #f8f9fa;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            border-bottom: 4px solid #004d40;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 {
+            color: #004d40;
+            font-size: 28px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .header .subtitle {
+            color: #546e7a;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+        
+        .metadata {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 10px;
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+        
+        .metadata-item {
+            font-size: 13px;
+        }
+        
+        .metadata-item strong {
+            color: #004d40;
+        }
+        
+        h2 {
+            color: #004d40;
+            font-size: 22px;
+            margin: 30px 0 15px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #00796b;
+        }
+        
+        h3 {
+            color: #00695c;
+            font-size: 18px;
+            margin: 20px 0 12px 0;
+            font-weight: 600;
+        }
+        
+        h4 {
+            color: #546e7a;
+            font-size: 15px;
+            margin: 15px 0 10px 0;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        p {
+            margin-bottom: 12px;
+            text-align: justify;
+            font-size: 14px;
+        }
+        
+        .executive-summary {
+            background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .executive-summary h3 {
+            color: white;
+            border-bottom: 2px solid rgba(255,255,255,0.3);
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .executive-summary ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .executive-summary li {
+            padding: 8px 0 8px 25px;
+            position: relative;
+            font-size: 14px;
+        }
+        
+        .executive-summary li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #c8e6c9;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 13px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        thead {
+            background: linear-gradient(135deg, #004d40 0%, #00796b 100%);
+            color: white;
+        }
+        
+        th {
+            padding: 12px 8px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        td {
+            padding: 10px 8px;
+            border-bottom: 1px solid #e8f5e9;
+        }
+        
+        tbody tr:hover {
+            background: #f1f8e9;
+        }
+        
+        tbody tr:nth-child(even) {
+            background: #fafdf5;
+        }
+        
+        .risk-high {
+            background: #ffebee !important;
+            color: #c62828;
+            font-weight: 600;
+        }
+        
+        .risk-medium {
+            background: #fff8e1 !important;
+            color: #f57c00;
+            font-weight: 600;
+        }
+        
+        .risk-low {
+            background: #e8f5e9 !important;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+        
+        .metric-box {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric-card {
+            background: white;
+            border-left: 4px solid #00796b;
+            padding: 15px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-radius: 4px;
+        }
+        
+        .metric-card.warning {
+            border-left-color: #ff9800;
+        }
+        
+        .metric-card.danger {
+            border-left-color: #f44336;
+        }
+        
+        .metric-card.success {
+            border-left-color: #4caf50;
+        }
+        
+        .metric-label {
+            font-size: 12px;
+            color: #546e7a;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 5px;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #004d40;
+        }
+        
+        .methodology-box {
+            background: #f1f8e9;
+            border: 2px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .formula {
+            background: #004d40;
+            color: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin: 15px 0;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        
+        .pipeline-step {
+            background: white;
+            border-left: 4px solid #00796b;
+            padding: 15px;
+            margin: 10px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .pipeline-step h4 {
+            color: #00796b;
+            margin: 0 0 10px 0;
+        }
+        
+        .recommendation-box {
+            background: linear-gradient(135deg, #2e7d32 0%, #4caf50 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .recommendation-box h3 {
+            color: white;
+            margin-bottom: 15px;
+        }
+        
+        .recommendation-item {
+            background: rgba(255,255,255,0.2);
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .alert-box {
+            background: #fff8e1;
+            border: 1px solid #ff9800;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .alert-box.danger {
+            background: #ffebee;
+            border-color: #f44336;
+            border-left-color: #f44336;
+        }
+        
+        .score-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .score-excellent {
+            background: #c8e6c9;
+            color: #1b5e20;
+        }
+        
+        .score-good {
+            background: #b2dfdb;
+            color: #004d40;
+        }
+        
+        .score-fair {
+            background: #fff8e1;
+            color: #ff6f00;
+        }
+        
+        .score-poor {
+            background: #ffccbc;
+            color: #bf360c;
+        }
+        
+        ul, ol {
+            margin: 15px 0 15px 25px;
+        }
+        
+        li {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e8f5e9;
+            text-align: center;
+            color: #546e7a;
+            font-size: 12px;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .container {
+                box-shadow: none;
+                padding: 20px;
+            }
+            .executive-summary, .recommendation-box {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+        
+        .text-right {
+            text-align: right;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .bold {
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <div class="header">
+            <h1>INFORME DE EVALUACIÓN DE RIESGO</h1>
+            <p class="subtitle">Análisis Integral de Emisores</p>
+            <p class="subtitle">Área de Riesgos</p>
+            
+            <div class="metadata">
+                <div class="metadata-item">
+                    <strong>Autor:</strong> Jose Gabriel Orosco
+                </div>
+                <div class="metadata-item">
+                    <strong>Fecha de Corte:</strong> 30 de Septiembre 2025
+                </div>
+                <div class="metadata-item">
+                    <strong>Período Analizado:</strong> 2021-12 , 2022-12, 2023-12, 2024-09, 2024-12, 2025-09
+                </div>
+                <div class="metadata-item">
+                    <strong>Emisores Evaluados:</strong> 8 entidades bancarias
+                </div>
+            </div>
+        </div>
+
+        <!-- RESUMEN EJECUTIVO -->
+        <div class="executive-summary">
+            <h3>RESUMEN EJECUTIVO</h3>
+            <p>El Área de Inversiones ha solicitado un análisis integral de ocho emisores bancarios con el objetivo de diversificar el portafolio institucional. Este informe presenta una evaluación cuantitativa rigurosa basada en métricas de riesgo crediticio, solvencia financiera, rentabilidad y estabilidad operacional.</p>
+            
+            <ul>
+                <li><strong>Contexto Sistémico:</strong> El sistema financiero colombiano alcanzó $3,949 billones COP (sept-2025) con CAGR de 7.64%. El HHI de 1,175 indica concentración moderada en grandes emisores.</li>
+                <li><strong>Universo Analizado:</strong> Los 8 bancos objetivo representan $96.96 billones COP (~2.45% del sistema) con HHI de 1,649, reflejando mayor concentración interna y sensibilidad a riesgos idiosincráticos.</li>
+                <li><strong>Hallazgo Crítico:</strong> La ausencia de provisiones reportadas en datos agregados constituye una limitación metodológica significativa que incrementa la incertidumbre sobre cobertura de pérdidas esperadas.</li>
+                <li><strong>Recomendación Principal:</strong> BANCO MUNDO MUJER S.A. presenta el mejor perfil riesgo-retorno (ROE 13.14%, crecimiento sostenible, estabilidad aceptable). Se recomienda como posición core.</li>
+                <li><strong>Alertas de Riesgo:</strong> BANCO PICHINCHA S.A. y LULO BANK S.A. presentan pérdidas acumuladas significativas y alta volatilidad. Requieren límites restrictivos (2-5%) y monitoreo mensual.</li>
+            </ul>
+        </div>
+
+        <!-- OBJETIVOS Y ALCANCE -->
+        <h2>1. OBJETIVOS Y ALCANCE DEL ANÁLISIS</h2>
+        
+        <h3>1.1 Objetivo General</h3>
+        <p>Evaluar la conveniencia de incorporar nuevos emisores bancarios al portafolio de inversión, mediante un análisis cuantitativo integral que permita identificar el perfil de riesgo-retorno de cada entidad y establecer límites prudenciales de exposición.</p>
+        
+        <h3>1.2 Emisores Bajo Evaluación</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>N°</th>
+                    <th>Emisor</th>
+                    <th>Tipo de Entidad</th>
+                    <th>Segmento Principal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>BANCIEN S.A.</td><td>Banco Comercial</td><td>Banca Corporativa</td></tr>
+                <tr><td>2</td><td>BANCAMÍA S.A.</td><td>Banco Microfinanciero</td><td>Microcrédito</td></tr>
+                <tr><td>3</td><td>BANCO W S.A.</td><td>Banco Comercial</td><td>Banca Empresarial</td></tr>
+                <tr><td>4</td><td>BANCOOMEVA</td><td>Banco Cooperativo</td><td>Multisegmento</td></tr>
+                <tr><td>5</td><td>BANCO FALABELLA S.A.</td><td>Banco Retail</td><td>Consumo</td></tr>
+                <tr><td>6</td><td>BANCO PICHINCHA S.A.</td><td>Banco Comercial</td><td>Multisegmento</td></tr>
+                <tr><td>7</td><td>BANCO MUNDO MUJER S.A.</td><td>Banco Microfinanciero</td><td>Microcrédito/Mujer</td></tr>
+                <tr><td>8</td><td>LULO BANK S.A.</td><td>Banco Digital</td><td>Banca Digital</td></tr>
+            </tbody>
+        </table>
+
+        <!-- METODOLOGÍA -->
+        <h2>2. METODOLOGÍA DE ANÁLISIS</h2>
+        
+        <div class="methodology-box">
+            <h3>2.1 Marco Conceptual</h3>
+            <p>El análisis se fundamenta en cinco dimensiones críticas para la evaluación de riesgo crediticio de entidades financieras:</p>
+            
+            <ol>
+                <li><strong>Escala y Estructura de Capital:</strong> Tamaño de activos, patrimonio y nivel de apalancamiento</li>
+                <li><strong>Calidad de Activos:</strong> Índice de Cartera Vencida (ICV), cobertura de provisiones, composición de cartera</li>
+                <li><strong>Rentabilidad:</strong> ROE, ROA, generación de utilidades y sostenibilidad del negocio</li>
+                <li><strong>Crecimiento:</strong> CAGR de activos, cartera y patrimonio; sostenibilidad del crecimiento</li>
+                <li><strong>Estabilidad:</strong> Volatilidad de indicadores clave, consistencia de resultados, resiliencia</li>
+            </ol>
+        </div>
+        
+        <h3>2.2 Métricas y Fórmulas</h3>
+        
+        <h4>Indicadores de Solvencia</h4>
+        <div class="formula">
+Apalancamiento = Activos Totales / Patrimonio
+Razón de Capital = Patrimonio / Activos Totales
+Cobertura Patrimonial = Patrimonio / Cartera Bruta
+        </div>
+        
+        <h4>Indicadores de Calidad de Cartera</h4>
+        <div class="formula">
+ICV (%) = (Cartera Vencida / Cartera Bruta) × 100
+Cobertura (%) = (Provisiones / Cartera Vencida) × 100
+Tasa de Provisiones = Provisiones / Cartera Bruta
+        </div>
+        
+        <h4>Indicadores de Rentabilidad</h4>
+        <div class="formula">
+ROE (%) = (Utilidad Neta / Patrimonio Promedio) × 100
+ROA (%) = (Utilidad Neta / Activos Promedio) × 100
+Margen Operacional = Utilidad Operacional / Ingresos Operacionales
+        </div>
+        
+        <h4>Indicadores de Crecimiento</h4>
+        <div class="formula">
+CAGR = [(Valor Final / Valor Inicial)^(1/n) - 1] × 100
+donde n = número de períodos anuales
+        </div>
+        
+        <h4>Indicadores de Estabilidad</h4>
+        <div class="formula">
+Volatilidad = Desviación Estándar / Media
+Coeficiente de Variación = (σ / μ) × 100
+        </div>
+        
+        <h3>2.3 Sistema de Scoring</h3>
+        <p>Se implementó un sistema de scoring multidimensional con ponderación basada en relevancia para riesgo crediticio:</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Dimensión</th>
+                    <th>Peso</th>
+                    <th>Componentes</th>
+                    <th>Criterio de Evaluación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tamaño y Estructura</td>
+                    <td>15%</td>
+                    <td>Activos, Patrimonio, Apalancamiento</td>
+                    <td>Mayor tamaño y menor apalancamiento = mejor score</td>
+                </tr>
+                <tr>
+                    <td>Calidad de Cartera</td>
+                    <td>30%</td>
+                    <td>ICV, Provisiones, Cobertura</td>
+                    <td>Menor ICV y mayor cobertura = mejor score</td>
+                </tr>
+                <tr>
+                    <td>Rentabilidad</td>
+                    <td>25%</td>
+                    <td>ROE, ROA, Utilidad Acumulada</td>
+                    <td>Mayor rentabilidad sostenible = mejor score</td>
+                </tr>
+                <tr>
+                    <td>Crecimiento</td>
+                    <td>15%</td>
+                    <td>CAGR Activos, CAGR Cartera</td>
+                    <td>Crecimiento moderado y sostenible = mejor score</td>
+                </tr>
+                <tr>
+                    <td>Estabilidad</td>
+                    <td>15%</td>
+                    <td>Volatilidad ROE, Volatilidad Activos</td>
+                    <td>Menor volatilidad = mejor score</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="formula">
+Score Total = (0.15 × Score Tamaño) + (0.30 × Score Calidad) + (0.25 × Score Rentabilidad) + (0.15 × Score Crecimiento) + (0.15 × Score Estabilidad)
+Escala: 0-100 puntos
+        </div>
+
+        <!-- PIPELINE DEL CÓDIGO -->
+        <h2>3. PIPELINE DE ANÁLISIS Y PROCESAMIENTO DE DATOS</h2>
+        
+        <div class="pipeline-step">
+            <h4>Paso 1: Carga y Validación de Datos</h4>
+            <div class="code-block">
+# Importación de librerías
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Carga de datos
+df_sistema = pd.read_csv('datos_sistema_financiero.csv')
+df_bancos = df_sistema[df_sistema['entidad'].isin(BANCOS_OBJETIVO)]
+
+# Validación de calidad
+validar_datos(df_bancos)
+- Verificar valores nulos
+- Validar consistencia de fechas
+- Detectar outliers
+- Confirmar unidades (millones COP)
+            </div>
+        </div>
+        
+        <div class="pipeline-step">
+            <h4>Paso 2: Transformación y Cálculo de Indicadores</h4>
+            <div class="code-block">
+# Cálculo de indicadores de riesgo
+def calcular_indicadores(df):
+    # Solvencia
+    df['apalancamiento'] = df['activos'] / df['patrimonio']
+    df['razon_capital'] = df['patrimonio'] / df['activos']
+    
+    # Calidad de cartera
+    df['icv'] = (df['cartera_vencida'] / df['cartera_bruta']) * 100
+    df['cobertura'] = (df['provisiones'] / df['cartera_vencida']) * 100
+    
+    # Rentabilidad
+    df['roe'] = (df['utilidad_neta'] / df['patrimonio_promedio']) * 100
+    df['roa'] = (df['utilidad_neta'] / df['activos_promedio']) * 100
+    
+    # Crecimiento (CAGR)
+    df_grouped = df.groupby('entidad').apply(calcular_cagr)
+    
+    # Estabilidad
+    df_vol = df.groupby('entidad').agg({
+        'activos': lambda x: x.std() / x.mean(),
+        'roe': 'std'
+    })
+    
+    return df
+            </div>
+        </div>
+        
+        <div class="pipeline-step">
+            <h4>Paso 3: Sistema de Scoring</h4>
+            <div class="code-block">
+# Sistema de scoring multidimensional
+def calcular_score(df):
+    # Normalización por percentiles (0-100)
+    dimensiones = {
+        'tamano': ['activos', 'patrimonio', '-apalancamiento'],
+        'calidad': ['-icv', 'cobertura'],
+        'rentabilidad': ['roe', 'roa'],
+        'crecimiento': ['cagr_activos'],
+        'estabilidad': ['-vol_activos', '-vol_roe']
+    }
+    
+    pesos = {
+        'tamano': 0.15,
+        'calidad': 0.30,
+        'rentabilidad': 0.25,
+        'crecimiento': 0.15,
+        'estabilidad': 0.15
+    }
+    
+    for dim, variables in dimensiones.items():
+        score_dim = calcular_score_dimension(df, variables)
+        df[f'score_{dim}'] = score_dim
+    
+    # Score total ponderado
+    df['score_total'] = sum(df[f'score_{d}'] * w for d, w in pesos.items())
+    
+    return df
+            </div>
+        </div>
+        
+        <div class="pipeline-step">
+            <h4>Paso 4: Análisis de Riesgo y Clasificación</h4>
+            <div class="code-block">
+# Clasificación de riesgo
+def clasificar_riesgo(score):
+    if score >= 70:
+        return 'BAJO', 'COMPRA'
+    elif score >= 60:
+        return 'MEDIO-BAJO', 'COMPRA'
+    elif score >= 50:
+        return 'MEDIO', 'NEUTRAL'
+    elif score >= 40:
+        return 'MEDIO-ALTO', 'PRECAUCIÓN'
+    else:
+        return 'ALTO', 'EVITAR'
+
+# Establecimiento de límites
+def calcular_limites(df):
+    df['limite_max'] = np.minimum(
+        0.15 * (df['score_total'] / 100),
+        df['limite_stress']
+    )
+    return df
+            </div>
+        </div>
+        
+        <div class="pipeline-step">
+            <h4>Paso 5: Generación de Reportes y Visualizaciones</h4>
+            <div class="code-block">
+# Generación de gráficos
+generar_dashboard(df_resultados)
+- Evolución temporal de indicadores
+- Matrices de riesgo-retorno
+- Distribución de scores
+- Análisis comparativo por dimensión
+
+# Exportación de resultados
+df_resultados.to_excel('analisis_emisores.xlsx')
+generar_informe_html(df_resultados)
+            </div>
+        </div>
+
+        <!-- RESULTADOS DEL ANÁLISIS -->
+        <h2>4. RESULTADOS DEL ANÁLISIS</h2>
+        
+        <h3>4.1 Contexto del Sistema Financiero Colombiano</h3>
+        
+        <div class="metric-box">
+            <div class="metric-card success">
+                <div class="metric-label">Tamaño del Sistema</div>
+                <div class="metric-value">$3,949 B</div>
+            </div>
+            <div class="metric-card success">
+                <div class="metric-label">CAGR Sistema</div>
+                <div class="metric-value">7.64%</div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-label">HHI (Concentración)</div>
+                <div class="metric-value">1,175</div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-label">Top 3 Participación</div>
+                <div class="metric-value">49.49%</div>
+            </div>
+        </div>
+        
+        <p>El sistema financiero colombiano presenta una concentración moderada (HHI=1,175) con dominio de tres grandes bancos que controlan casi la mitad de los activos. Este entorno implica que los bancos pequeños y medianos operan en nichos especializados con perfiles de riesgo diferenciados.</p>
+        
+        <h3>4.2 Universo de Bancos Objetivo</h3>
+        
+        <div class="metric-box">
+            <div class="metric-card">
+                <div class="metric-label">Activos Agregados</div>
+                <div class="metric-value">$96.96 B</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-label">% del Sistema</div>
+                <div class="metric-value">2.45%</div>
+            </div>
+            <div class="metric-card warning">
+                <div class="metric-label">HHI Interno</div>
+                <div class="metric-value">1,649</div>
+            </div>
+            <div class="metric-card success">
+                <div class="metric-label">CAGR Grupo</div>
+                <div class="metric-value">7.81%</div>
+            </div>
+        </div>
+
+        <h3>4.3 Análisis de Tamaño y Estructura de Capital</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">Activos<br>(MM COP)</th>
+                    <th class="text-right">Patrimonio<br>(MM COP)</th>
+                    <th class="text-right">Apalancamiento</th>
+                    <th class="text-right">Razón<br>Capital</th>
+                    <th>Clasificación</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">6,162,287</td>
+                    <td class="text-right">915,025</td>
+                    <td class="text-right">5.73x</td>
+                    <td class="text-right">14.85%</td>
+                    <td><span class="score-badge score-good">ADECUADO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">5,587,807</td>
+                    <td class="text-right">531,907</td>
+                    <td class="text-right">9.51x</td>
+                    <td class="text-right">9.52%</td>
+                    <td><span class="score-badge score-fair">MODERADO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">3,908,494</td>
+                    <td class="text-right">405,304</td>
+                    <td class="text-right">8.64x</td>
+                    <td class="text-right">10.37%</td>
+                    <td><span class="score-badge score-fair">MODERADO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">3,558,473</td>
+                    <td class="text-right">512,631</td>
+                    <td class="text-right">5.94x</td>
+                    <td class="text-right">14.41%</td>
+                    <td><span class="score-badge score-good">ADECUADO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCIEN</td>
+                    <td class="text-right">2,814,168</td>
+                    <td class="text-right">223,563</td>
+                    <td class="text-right">11.59x</td>
+                    <td class="text-right">7.94%</td>
+                    <td><span class="score-badge score-poor">ALTO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">2,629,584</td>
+                    <td class="text-right">378,099</td>
+                    <td class="text-right">5.95x</td>
+                    <td class="text-right">14.38%</td>
+                    <td><span class="score-badge score-good">ADECUADO</span></td>
+                </tr>
+                <tr>
+                    <td>BANCO W</td>
+                    <td class="text-right">2,487,095</td>
+                    <td class="text-right">528,045</td>
+                    <td class="text-right">3.71x</td>
+                    <td class="text-right">21.23%</td>
+                    <td><span class="score-badge score-excellent">SÓLIDO</span></td>
+                </tr>
+                <tr>
+                    <td>LULO BANK</td>
+                    <td class="text-right">1,463,432</td>
+                    <td class="text-right">392,176</td>
+                    <td class="text-right">2.73x</td>
+                    <td class="text-right">26.80%</td>
+                    <td><span class="score-badge score-excellent">SÓLIDO</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="alert-box danger">
+            <strong>⚠ ALERTA CRÍTICA:</strong> BANCIEN presenta un apalancamiento de 11.59x, significativamente superior al resto del grupo. Esto implica alta sensibilidad del patrimonio ante pérdidas crediticias. Se recomienda límite restrictivo hasta validación de ratios regulatorios.
+        </div>
+
+        <h3>4.4 Análisis de Calidad de Cartera</h3>
+        
+        <h4>Evolución del Índice de Cartera Vencida (ICV)</h4>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">2021-12</th>
+                    <th class="text-right">2022-12</th>
+                    <th class="text-right">2023-12</th>
+                    <th class="text-right">2024-12</th>
+                    <th class="text-right">2025-09</th>
+                    <th class="text-right">ICV Máx</th>
+                    <th>Tendencia</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-low">
+                    <td>BANCIEN</td>
+                    <td class="text-right">0.00%</td>
+                    <td class="text-right">0.00%</td>
+                    <td class="text-right">3.80%</td>
+                    <td class="text-right">2.40%</td>
+                    <td class="text-right">1.78%</td>
+                    <td class="text-right">3.80%</td>
+                    <td>⬇ MEJORA</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">4.69%</td>
+                    <td class="text-right">7.14%</td>
+                    <td class="text-right">6.90%</td>
+                    <td class="text-right">5.07%</td>
+                    <td class="text-right">1.30%</td>
+                    <td class="text-right">7.14%</td>
+                    <td>⬇ MEJORA</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO W</td>
+                    <td class="text-right">8.83%</td>
+                    <td class="text-right">4.58%</td>
+                    <td class="text-right">6.26%</td>
+                    <td class="text-right">6.20%</td>
+                    <td class="text-right">4.03%</td>
+                    <td class="text-right">8.83%</td>
+                    <td>⬇ MEJORA</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">3.98%</td>
+                    <td class="text-right">7.87%</td>
+                    <td class="text-right">10.17%</td>
+                    <td class="text-right">7.30%</td>
+                    <td class="text-right">4.52%</td>
+                    <td class="text-right">10.17%</td>
+                    <td>⬇ MEJORA</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>LULO BANK</td>
+                    <td class="text-right">0.00%</td>
+                    <td class="text-right">4.89%</td>
+                    <td class="text-right">14.09%</td>
+                    <td class="text-right">7.40%</td>
+                    <td class="text-right">5.21%</td>
+                    <td class="text-right">14.09%</td>
+                    <td>⬇ VOLÁTIL</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">6.18%</td>
+                    <td class="text-right">5.65%</td>
+                    <td class="text-right">7.69%</td>
+                    <td class="text-right">6.99%</td>
+                    <td class="text-right">5.42%</td>
+                    <td class="text-right">7.92%</td>
+                    <td>→ ESTABLE</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">4.49%</td>
+                    <td class="text-right">4.11%</td>
+                    <td class="text-right">6.07%</td>
+                    <td class="text-right">6.93%</td>
+                    <td class="text-right">5.60%</td>
+                    <td class="text-right">7.02%</td>
+                    <td>→ ESTABLE</td>
+                </tr>
+                <tr class="risk-high">
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">5.89%</td>
+                    <td class="text-right">5.52%</td>
+                    <td class="text-right">6.67%</td>
+                    <td class="text-right">6.51%</td>
+                    <td class="text-right">6.43%</td>
+                    <td class="text-right">7.14%</td>
+                    <td>→ PERSISTENTE</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p><strong>Interpretación:</strong></p>
+        <ul>
+            <li><strong>Riesgo Bajo (ICV < 4%):</strong> BANCIEN, BANCO W y BANCO PICHINCHA muestran mejora sostenida. Sin embargo, el caso de Pichincha debe analizarse en conjunto con sus pérdidas operativas.</li>
+            <li><strong>Riesgo Medio (ICV 4-6%):</strong> BANCAMÍA, BANCO MUNDO MUJER, LULO BANK y FALABELLA operan en segmentos de mayor riesgo (microcrédito, consumo) con ICVs estructuralmente más altos.</li>
+            <li><strong>Riesgo Alto (ICV > 6%):</strong> BANCOOMEVA presenta persistencia en niveles elevados que requieren análisis detallado de cobertura y políticas de castigo.</li>
+        </ul>
+
+        <h3>4.5 Análisis de Rentabilidad y Generación de Valor</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">ROE<br>Promedio</th>
+                    <th class="text-right">ROA<br>Promedio</th>
+                    <th class="text-right">Utilidad<br>Acumulada<br>(MM COP)</th>
+                    <th class="text-right">Utilidad<br>2025-09<br>(MM COP)</th>
+                    <th>Perfil</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-low">
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">13.14%</td>
+                    <td class="text-right">1.98%</td>
+                    <td class="text-right">347,292</td>
+                    <td class="text-right">92,351</td>
+                    <td><span class="score-badge score-excellent">EXCELENTE</span></td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCIEN</td>
+                    <td class="text-right">3.13%</td>
+                    <td class="text-right">0.25%</td>
+                    <td class="text-right">27,740</td>
+                    <td class="text-right">13,591</td>
+                    <td><span class="score-badge score-fair">MODERADO</span></td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO W</td>
+                    <td class="text-right">1.74%</td>
+                    <td class="text-right">0.49%</td>
+                    <td class="text-right">61,304</td>
+                    <td class="text-right">16,373</td>
+                    <td><span class="score-badge score-fair">MODERADO</span></td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">1.19%</td>
+                    <td class="text-right">0.16%</td>
+                    <td class="text-right">43,051</td>
+                    <td class="text-right">-23,699</td>
+                    <td><span class="score-badge score-fair">DÉBIL</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">-3.97%</td>
+                    <td class="text-right">-0.45%</td>
+                    <td class="text-right">-188,803</td>
+                    <td class="text-right">76,441</td>
+                    <td><span class="score-badge score-poor">RECUPERACIÓN</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td>LULO BANK</td>
+                    <td class="text-right">-18.25%</td>
+                    <td class="text-right">-11.12%</td>
+                    <td class="text-right">-367,344</td>
+                    <td class="text-right">-42,414</td>
+                    <td><span class="score-badge score-poor">PÉRDIDAS</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">-20.66%</td>
+                    <td class="text-right">-2.55%</td>
+                    <td class="text-right">-329,717</td>
+                    <td class="text-right">56,036</td>
+                    <td><span class="score-badge score-poor">RECUPERACIÓN</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">-54.09%</td>
+                    <td class="text-right">-4.40%</td>
+                    <td class="text-right">-859,553</td>
+                    <td class="text-right">-120,194</td>
+                    <td><span class="score-badge score-poor">CRÍTICO</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p><strong>Hallazgos Críticos:</strong></p>
+        <ul>
+            <li><strong>BANCO MUNDO MUJER</strong> destaca con ROE de 13.14% y generación consistente de utilidades ($347MM acumuladas). Es el único emisor con perfil de rentabilidad sólido.</li>
+            <li><strong>BANCO PICHINCHA</strong> presenta el peor perfil con ROE promedio de -54.09% y pérdidas acumuladas de $859MM. Esto representa destrucción severa de valor patrimonial.</li>
+            <li><strong>LULO BANK y BANCAMÍA</strong> muestran ROEs negativos aunque con señales de recuperación en el último período. Requieren validación de sostenibilidad.</li>
+            <li><strong>BANCOOMEVA</strong> presenta rentabilidad marginal y pérdidas en el último trimestre, sugiriendo presiones operativas.</li>
+        </ul>
+
+        <h3>4.6 Análisis de Crecimiento y Sostenibilidad</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">CAGR<br>Activos</th>
+                    <th class="text-right">CAGR<br>Patrimonio</th>
+                    <th class="text-right">CAGR<br>Cartera</th>
+                    <th>Evaluación de Crecimiento</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-high">
+                    <td>LULO BANK</td>
+                    <td class="text-right">56.40%</td>
+                    <td class="text-right">21.71%</td>
+                    <td class="text-right">730.66%</td>
+                    <td>❌ No rentable - Alto riesgo</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">8.93%</td>
+                    <td class="text-right">4.22%</td>
+                    <td class="text-right">7.23%</td>
+                    <td>✅ Sostenible y rentable</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">5.04%</td>
+                    <td class="text-right">-3.18%</td>
+                    <td class="text-right">4.64%</td>
+                    <td>⚠ Crecimiento con erosión patrimonial</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">4.36%</td>
+                    <td class="text-right">1.86%</td>
+                    <td class="text-right">3.31%</td>
+                    <td>❌ Inconsistente con pérdidas</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">3.02%</td>
+                    <td class="text-right">-1.73%</td>
+                    <td class="text-right">1.42%</td>
+                    <td>⚠ Crecimiento moderado, patrimonio débil</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO W</td>
+                    <td class="text-right">2.68%</td>
+                    <td class="text-right">-1.26%</td>
+                    <td class="text-right">4.90%</td>
+                    <td>✅ Crecimiento conservador</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCIEN</td>
+                    <td class="text-right">1.14%</td>
+                    <td class="text-right">1.32%</td>
+                    <td class="text-right">-0.73%</td>
+                    <td>→ Estable, sin expansión</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">-0.60%</td>
+                    <td class="text-right">5.46%</td>
+                    <td class="text-right">-0.15%</td>
+                    <td>⚠ Contracción operativa</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p><strong>Análisis Crítico:</strong></p>
+        <ul>
+            <li><strong>LULO BANK:</strong> Crecimiento explosivo (56% en activos, 730% en cartera) sin rentabilidad. Este patrón es típico de estrategias agresivas de captación que priorizan volumen sobre calidad. <strong>RIESGO ALTO</strong> de deterioro futuro de cartera.</li>
+            <li><strong>BANCO MUNDO MUJER:</strong> Crecimiento balanceado (~8-9%) con rentabilidad positiva. Este es el único caso de crecimiento sostenible en el grupo.</li>
+            <li><strong>Erosión Patrimonial:</strong> BANCAMÍA, BANCO W y BANCOOMEVA muestran CAGR de patrimonio negativo, indicando que las pérdidas o distribuciones superan la generación orgánica de capital.</li>
+        </ul>
+
+        <h3>4.7 Análisis de Estabilidad y Volatilidad</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">Volatilidad<br>Activos</th>
+                    <th class="text-right">Volatilidad<br>ROE</th>
+                    <th class="text-right">ICV<br>Máximo</th>
+                    <th>Clasificación<br>Estabilidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-low">
+                    <td>BANCIEN</td>
+                    <td class="text-right">2.36%</td>
+                    <td class="text-right">2.57%</td>
+                    <td class="text-right">3.80%</td>
+                    <td>MUY ESTABLE</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">5.81%</td>
+                    <td class="text-right">3.87%</td>
+                    <td class="text-right">7.14%</td>
+                    <td>MUY ESTABLE</td>
+                </tr>
+                <tr class="risk-low">
+                    <td>BANCO W</td>
+                    <td class="text-right">6.78%</td>
+                    <td class="text-right">4.12%</td>
+                    <td class="text-right">8.83%</td>
+                    <td>MUY ESTABLE</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">7.95%</td>
+                    <td class="text-right">39.09%</td>
+                    <td class="text-right">7.92%</td>
+                    <td>VOLÁTIL</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">12.61%</td>
+                    <td class="text-right">9.28%</td>
+                    <td class="text-right">7.02%</td>
+                    <td>ESTABLE</td>
+                </tr>
+                <tr class="risk-medium">
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">9.65%</td>
+                    <td class="text-right">12.21%</td>
+                    <td class="text-right">10.17%</td>
+                    <td>MODERADA</td>
+                </tr>
+                <tr class="risk-high">
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">10.92%</td>
+                    <td class="text-right">29.26%</td>
+                    <td class="text-right">7.14%</td>
+                    <td>VOLÁTIL</td>
+                </tr>
+                <tr class="risk-high">
+                    <td>LULO BANK</td>
+                    <td class="text-right">58.02%</td>
+                    <td class="text-right">5.05%</td>
+                    <td class="text-right">14.09%</td>
+                    <td>MUY VOLÁTIL</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- SCORING Y RANKING -->
+        <h2>5. SCORING INTEGRAL Y CLASIFICACIÓN DE RIESGO</h2>
+        
+        <h3>5.1 Sistema de Scoring Multidimensional</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">Tamaño<br>(15%)</th>
+                    <th class="text-right">Calidad<br>(30%)</th>
+                    <th class="text-right">Rentabilidad<br>(25%)</th>
+                    <th class="text-right">Crecimiento<br>(15%)</th>
+                    <th class="text-right">Estabilidad<br>(15%)</th>
+                    <th class="text-right">SCORE<br>TOTAL</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="risk-low">
+                    <td><strong>BANCO MUNDO MUJER</strong></td>
+                    <td class="text-right">12</td>
+                    <td class="text-right">20</td>
+                    <td class="text-right">23</td>
+                    <td class="text-right">13</td>
+                    <td class="text-right">10</td>
+                    <td class="text-right"><strong>78</strong></td>
+                    <td><span class="score-badge score-excellent">A+</span></td>
+                </tr>
+                <tr class="risk-low">
+                    <td><strong>BANCO W</strong></td>
+                    <td class="text-right">10</td>
+                    <td class="text-right">22</td>
+                    <td class="text-right">15</td>
+                    <td class="text-right">8</td>
+                    <td class="text-right">12</td>
+                    <td class="text-right"><strong>67</strong></td>
+                    <td><span class="score-badge score-good">BBB+</span></td>
+                </tr>
+                <tr class="risk-low">
+                    <td><strong>BANCOOMEVA</strong></td>
+                    <td class="text-right">13</td>
+                    <td class="text-right">15</td>
+                    <td class="text-right">12</td>
+                    <td class="text-right">8</td>
+                    <td class="text-right">12</td>
+                    <td class="text-right"><strong>60</strong></td>
+                    <td><span class="score-badge score-good">BBB</span></td>
+                </tr>
+                <tr class="risk-medium">
+                    <td><strong>BANCIEN</strong></td>
+                    <td class="text-right">8</td>
+                    <td class="text-right">23</td>
+                    <td class="text-right">13</td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">13</td>
+                    <td class="text-right"><strong>62</strong></td>
+                    <td><span class="score-badge score-good">BBB</span></td>
+                </tr>
+                <tr class="risk-medium">
+                    <td><strong>BANCO FALABELLA</strong></td>
+                    <td class="text-right">14</td>
+                    <td class="text-right">18</td>
+                    <td class="text-right">8</td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">9</td>
+                    <td class="text-right"><strong>54</strong></td>
+                    <td><span class="score-badge score-fair">BB+</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td><strong>BANCAMÍA</strong></td>
+                    <td class="text-right">9</td>
+                    <td class="text-right">18</td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">9</td>
+                    <td class="text-right">8</td>
+                    <td class="text-right"><strong>49</strong></td>
+                    <td><span class="score-badge score-fair">BB</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td><strong>LULO BANK</strong></td>
+                    <td class="text-right">5</td>
+                    <td class="text-right">16</td>
+                    <td class="text-right">3</td>
+                    <td class="text-right">14</td>
+                    <td class="text-right">5</td>
+                    <td class="text-right"><strong>43</strong></td>
+                    <td><span class="score-badge score-poor">B+</span></td>
+                </tr>
+                <tr class="risk-high">
+                    <td><strong>BANCO PICHINCHA</strong></td>
+                    <td class="text-right">11</td>
+                    <td class="text-right">21</td>
+                    <td class="text-right">2</td>
+                    <td class="text-right">9</td>
+                    <td class="text-right">7</td>
+                    <td class="text-right"><strong>50</strong></td>
+                    <td><span class="score-badge score-poor">B+</span></td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>5.2 Interpretación del Rating</h3>
+        
+        <div class="methodology-box">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rating</th>
+                        <th>Score</th>
+                        <th>Perfil de Riesgo</th>
+                        <th>Acción Recomendada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>A+ / A</td>
+                        <td>75-100</td>
+                        <td>Riesgo Bajo - Emisor de Alta Calidad</td>
+                        <td>COMPRA FUERTE - Posición Core 10-15%</td>
+                    </tr>
+                    <tr>
+                        <td>BBB+ / BBB</td>
+                        <td>60-74</td>
+                        <td>Riesgo Medio-Bajo - Grado de Inversión</td>
+                        <td>COMPRA - Posición 6-10%</td>
+                    </tr>
+                    <tr>
+                        <td>BB+ / BB</td>
+                        <td>50-59</td>
+                        <td>Riesgo Medio - Grado Especulativo</td>
+                        <td>NEUTRAL - Posición 3-6% con monitoreo</td>
+                    </tr>
+                    <tr>
+                        <td>B+ / B</td>
+                        <td>40-49</td>
+                        <td>Riesgo Alto - Alto Riesgo</td>
+                        <td>PRECAUCIÓN - Límite máximo 2-4%</td>
+                    </tr>
+                    <tr>
+                        <td>< B</td>
+                        <td>< 40</td>
+                        <td>Riesgo Muy Alto - No Recomendado</td>
+                        <td>EVITAR</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- ANÁLISIS DE RIESGO POR EMISOR -->
+        <h2>6. ANÁLISIS DETALLADO POR EMISOR</h2>
+        
+        <h3>6.1 BANCO MUNDO MUJER S.A. - Rating: A+ (Score: 78)</h3>
+        <div class="recommendation-box">
+            <h4>✅ RECOMENDACIÓN: COMPRA FUERTE - POSICIÓN CORE</h4>
+            
+            <div class="recommendation-item">
+                <strong>Fortalezas Principales:</strong>
+                <ul>
+                    <li>Mejor ROE del grupo (13.14%) con generación consistente de utilidades</li>
+                    <li>Crecimiento sostenible (CAGR 8.93%) sin comprometer calidad</li>
+                    <li>ICV controlado (5.60%) para su segmento de microcrédito</li>
+                    <li>Modelo de negocio enfocado en inclusión financiera femenina con track record probado</li>
+                </ul>
+            </div>
+            
+            <div class="recommendation-item">
+                <strong>Riesgos Identificados:</strong>
+                <ul>
+                    <li>Volatilidad de activos (12.61%) mayor al promedio del grupo</li>
+                    <li>Exposición concentrada en segmento microcrédito vulnerable a ciclos económicos</li>
+                    <li>Falta de información sobre provisiones detalladas</li>
+                </ul>
+            </div>
+            
+            <div class="recommendation-item">
+                <strong>Límites Propuestos:</strong>
+                <ul>
+                    <li><strong>Límite Máximo:</strong> 12-15% del portafolio total</li>
+                    <li><strong>Límite por Instrumento:</strong> 8% en bonos ordinarios, 7% en subordinadas</li>
+                    <li><strong>Plazo Preferente:</strong> 3-5 años</li>
+                </ul>
+            </div>
+            
+            <div class="recommendation-item">
+                <strong>Triggers de Monitoreo:</strong>
+                <ul>
+                    <li>ICV > 7.0% por 2 trimestres consecutivos</li>
+                    <li>ROE < 10% por 2 trimestres consecutivos</li>
+                    <li>Caída de utilidad trimestral > 30% interanual</li>
+                    <li>Apalancamiento > 7.0x</li>
+                </ul>
+            </div>
+        </div>
+        
+        <h3>6.2 BANCO W S.A. - Rating: BBB+ (Score: 67)</h3>
+        <div class="methodology-box">
+            <h4>✅ RECOMENDACIÓN: COMPRA - POSICIÓN BALANCEADA</h4>
+            
+            <p><strong>Fortalezas:</strong> Apalancamiento conservador (3.71x), mejor razón de capital del grupo (21.23%), ICV en mejora (4.03%), perfil defensivo con volatilidad controlada.</p>
+            
+            <p><strong>Debilidades:</strong> ROE modesto (1.74%), CAGR de patrimonio negativo (-1.26%), rentabilidad por debajo del costo de capital.</p>
+            
+            <p><strong>Límite Propuesto:</strong> 8-10% del portafolio con enfoque en instrumentos senior.</p>
+            
+            <p><strong>Triggers:</strong> ICV > 6.0%, ROE < 0%, Apalancamiento > 5.0x, Deterioro súbito de cartera comercial.</p>
+        </div>
+        
+        <h3>6.3 BANCOOMEVA - Rating: BBB (Score: 60)</h3>
+        <div class="methodology-box">
+            <h4>⚠ RECOMENDACIÓN: NEUTRAL - MONITOREO CERCANO</h4>
+            
+            <p><strong>Fortalezas:</strong> Segundo mayor tamaño del grupo ($5.6B), diversificación de negocio cooperativo, estabilidad histórica.</p>
+            
+            <p><strong>Debilidades:</strong> ICV persistentemente alto (6.43%), apalancamiento elevado (9.51x), pérdidas en último trimestre (-$23.7MM), erosión patrimonial (CAGR -1.73%).</p>
+            
+            <div class="alert-box">
+                <strong>⚠ ALERTA:</strong> La combinación de alto apalancamiento + ICV elevado + pérdidas recientes sugiere presiones de solvencia. Requiere análisis detallado de composición de cartera y políticas de provisión antes de invertir.
+            </div>
+            
+            <p><strong>Límite Propuesto:</strong> 6-8% del portafolio SOLO si se valida:</p>
+            <ul>
+                <li>Cobertura de provisiones > 100% de cartera vencida</li>
+                <li>Plan de capitalización documentado</li>
+                <li>Reversión de pérdidas en próximos 2 trimestres</li>
+            </ul>
+            
+            <p><strong>Triggers:</strong> ICV > 7.0%, 2 trimestres consecutivos con pérdidas, Apalancamiento > 10.0x, Cobertura < 80%.</p>
+        </div>
+        
+        <h3>6.4 BANCIEN S.A. - Rating: BBB (Score: 62)</h3>
+        <div class="methodology-box">
+            <h4>⚠ RECOMENDACIÓN: NEUTRAL CON PRECAUCIÓN</h4>
+            
+            <p><strong>Fortalezas:</strong> Mejor ICV del grupo (1.78%), tendencia de mejora sostenida, rentabilidad positiva modesta.</p>
+            
+            <p><strong>Debilidades CRÍTICAS:</strong></p>
+            <div class="alert-box danger">
+                <strong>🚨 RIESGO ALTO:</strong> Apalancamiento de 11.59x es el más alto del grupo y excede significativamente umbrales prudenciales. Esto implica:
+                <ul>
+                    <li>Alta sensibilidad patrimonial: Una pérdida de 8.6% sobre activos agota el patrimonio</li>
+                    <li>Capacidad limitada de absorción de pérdidas</li>
+                    <li>Posible incumplimiento de ratios regulatorios en escenarios adversos</li>
+                </ul>
+            </div>
+            
+            <p><strong>Límite Propuesto:</strong> 4-6% MÁXIMO hasta confirmar:</p>
+            <ul>
+                <li>Ratio de solvencia regulatorio > 12%</li>
+                <li>Plan de capitalización o reducción de apalancamiento</li>
+                <li>Cobertura de provisiones verificada > 100%</li>
+            </ul>
+            
+            <p><strong>Triggers:</strong> Apalancamiento > 12.0x, ICV > 3.0%, Pérdidas en cualquier trimestre, Patrimonio < $200MM.</p>
+        </div>
+        
+        <h3>6.5 BANCO FALABELLA S.A. - Rating: BB+ (Score: 54)</h3>
+        <div class="methodology-box">
+            <h4>⚠ RECOMENDACIÓN: NEUTRAL - OBSERVACIÓN</h4>
+            
+            <p><strong>Contexto:</strong> Mayor banco del grupo por tamaño ($6.2B), exposición retail y consumo, respaldo de grupo multinacional.</p>
+            
+            <p><strong>Preocupaciones:</strong></p>
+            <ul>
+                <li>Pérdidas acumuladas de $188MM en el período</li>
+                <li>ICV máximo de 10.17% (2023) evidencia deterioro severo pasado</li>
+                <li>CAGR negativo en activos (-0.60%) sugiere contracción estratégica</li>
+                <li>Aunque muestra recuperación reciente (utilidad +$76MM en sep-25), sostenibilidad incierta</li>
+            </ul>
+            
+            <p><strong>Límite Propuesto:</strong> 5-7% del portafolio con enfoque en:</p>
+            <ul>
+                <li>Instrumentos senior con vencimientos cortos (1-2 años)</li>
+                <li>Posible garantía implícita del grupo Falabella (validar)</li>
+                <li>Monitoreo trimestral obligatorio</li>
+            </ul>
+            
+            <p><strong>Condición para Invertir:</strong> Verificar 3 trimestres consecutivos con utilidades positivas y ROE > 5%.</p>
+        </div>
+        
+        <h3>6.6 BANCAMÍA S.A. - Rating: BB (Score: 49)</h3>
+        <div class="methodology-box">
+            <h4>🔴 RECOMENDACIÓN: PRECAUCIÓN - LÍMITE RESTRICTIVO</h4>
+            
+            <p><strong>Perfil de Riesgo Alto:</strong></p>
+            <ul>
+                <li>ROE promedio de -20.66% indica destrucción persistente de valor</li>
+                <li>Pérdidas acumuladas de $329MM erosionan significativamente el patrimonio</li>
+                <li>Aunque muestra recuperación en sep-25 (+$56MM), insuficiente para revertir tendencia</li>
+                <li>Especialización en microcrédito implica mayor PD estructural</li>
+            </ul>
+            
+            <div class="alert-box danger">
+                <strong>⚠ CRÍTICO:</strong> El CAGR de patrimonio de -3.18% combinado con pérdidas acumuladas sugiere que el banco está consumiendo capital más rápido de lo que lo genera. Sin capitalización externa, el deterioro continuará.
+            </div>
+            
+            <p><strong>Límite Propuesto:</strong> 3-5% MÁXIMO y SOLO si:</p>
+            <ul>
+                <li>Se confirma inyección de capital por al menos $150MM</li>
+                <li>Plan de turnaround con hitos cuantificables presentado</li>
+                <li>4 trimestres consecutivos de utilidades positivas</li>
+                <li>Cobertura de provisiones > 120%</li>
+            </ul>
+            
+            <p><strong>Recomendación Operativa:</strong> Posición TÁCTICA únicamente, revisar mensualmente. Considerar salir si no cumple condiciones en 6 meses.</p>
+        </div>
+        
+        <h3>6.7 LULO BANK S.A. - Rating: B+ (Score: 43)</h3>
+        <div class="methodology-box">
+            <h4>🔴 RECOMENDACIÓN: ALTO RIESGO - EXPOSICIÓN MÍNIMA</h4>
+            
+            <p><strong>Perfil de Startupbanking:</strong> Banco digital en fase de crecimiento explosivo pero con generación de pérdidas persistentes.</p>
+            
+            <p><strong>Riesgos Severos:</strong></p>
+            <div class="alert-box danger">
+                <strong>🚨 MÁXIMO RIESGO DEL GRUPO:</strong>
+                <ul>
+                    <li>Volatilidad de activos de 58.02% - Extremadamente alta</li>
+                    <li>CAGR de cartera de 730% - Crecimiento descontrolado</li>
+                    <li>ROE de -18.25% y ROA de -11.12% - Modelo no rentable</li>
+                    <li>Pérdidas acumuladas de $367MM sobre patrimonio de $392MM</li>
+                    <li>ICV máximo de 14.09% evidencia problemas de originación</li>
+                </ul>
+            </div>
+            
+            <p><strong>Análisis:</strong> El banco prioriza crecimiento sobre rentabilidad y calidad. Typical de neobancos en early-stage, pero con riesgos inaceptables para portafolio institucional conservador. La estrategia de "quemar capital" para ganar market share puede ser válida en equity, NO en deuda.</p>
+            
+            <p><strong>Límite Propuesto:</strong> 1-3% MÁXIMO como posición especulativa de alto riesgo, SOLO si:</p>
+            <ul>
+                <li>Plazo máximo 1 año</li>
+                <li>Tasa > 15% anual (compensa riesgo)</li>
+                <li>Garantías adicionales o colateral</li>
+                <li>Covenant de pérdida máxima trimestral</li>
+            </ul>
+            
+            <p><strong>Alternativa:</strong> EVITAR hasta demostrar 4 trimestres consecutivos de ROE positivo y ICV < 6%.</p>
+        </div>
+        
+        <h3>6.8 BANCO PICHINCHA S.A. - Rating: B+ (Score: 50)</h3>
+        <div class="methodology-box">
+            <h4>🔴 RECOMENDACIÓN: NO RECOMENDADO - RIESGO CRÍTICO</h4>
+            
+            <div class="alert-box danger">
+                <strong>🚨 ALERTA MÁXIMA - PEOR PERFIL DE RENTABILIDAD:</strong>
+                <ul>
+                    <li>ROE promedio de -54.09% - Destrucción severa de valor</li>
+                    <li>Pérdidas acumuladas de $859MM - Supera 2x el patrimonio actual</li>
+                    <li>Pérdida en sep-25 de $120MM - Sin señales de reversión</li>
+                    <li>Inconsistencia: ICV bajo (1.30%) pero pérdidas masivas</li>
+                </ul>
+            </div>
+            
+            <p><strong>Hipótesis sobre las pérdidas:</strong></p>
+            <ul>
+                <li>Provisiones extraordinarias no reflejadas en ICV agregado</li>
+                <li>Castigos masivos de cartera</li>
+                <li>Restructuración operativa con costos excepcionales</li>
+                <li>Pérdidas operacionales/legales no crediticias</li>
+            </ul>
+            
+            <p><strong>Due Diligence CRÍTICO Requerido:</strong></p>
+            <ul>
+                <li>Estados financieros auditados completos 2022-2025</li>
+                <li>Análisis de cartera por calificación y antigüedad</li>
+                <li>Detalle de provisiones y castigos ejecutados</li>
+                <li>Plan de recuperación aprobado por Junta Directiva</li>
+                <li>Confirmación de apoyo del grupo matriz (Grupo Pichincha - Ecuador)</li>
+                <li>Rating de agencias externas (Fitch, S&P, Moody's)</li>
+            </ul>
+            
+            <p><strong>Límite Propuesto:</strong> 2-4% SOLO si due diligence confirma:</p>
+            <ul>
+                <li>Garantía explícita del grupo matriz</li>
+                <li>Plan de capitalización por > $300MM</li>
+                <li>Eventos no recurrentes que explican pérdidas</li>
+                <li>Cambio de administración con track record probado</li>
+            </ul>
+            
+            <p><strong>Recomendación:</strong> <strong>EVITAR</strong> hasta demostrar 2 años consecutivos de utilidades y ROE > 5%. El riesgo de pérdida total de inversión es REAL.</p>
+        </div>
+
+        <!-- ESCENARIOS DE ESTRÉS -->
+        <h2>7. ANÁLISIS DE ESCENARIOS Y STRESS TESTING</h2>
+        
+        <h3>7.1 Escenarios Macroeconómicos</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Variable</th>
+                    <th>Base</th>
+                    <th>Adverso</th>
+                    <th>Severo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Crecimiento PIB</td>
+                    <td>+2.5%</td>
+                    <td>+0.5%</td>
+                    <td>-1.5%</td>
+                </tr>
+                <tr>
+                    <td>Tasa de Desempleo</td>
+                    <td>10.5%</td>
+                    <td>12.5%</td>
+                    <td>14.5%</td>
+                </tr>
+                <tr>
+                    <td>Tasa de Referencia Banrep</td>
+                    <td>9.5%</td>
+                    <td>11.0%</td>
+                    <td>13.0%</td>
+                </tr>
+                <tr>
+                    <td>Devaluación COP</td>
+                    <td>+3%</td>
+                    <td>+10%</td>
+                    <td>+20%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <h3>7.2 Impacto Estimado en ICV</h3>
+        
+        <div class="formula">
+Supuestos de Stress:
+- Escenario Adverso: ICV aumenta +150 bp (1.5pp)
+- Escenario Severo: ICV aumenta +300 bp (3.0pp)
+- LGD permanece constante en 45%
+- Cobertura de provisiones se asume en 100%
+        </div>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Emisor</th>
+                    <th class="text-right">ICV<br>Actual</th>
+                    <th class="text-right">ICV<br>Adverso</th>
+                    <th class="text-right">ICV<br>Severo</th>
+                    <th class="text-right">Pérdida<br>Esperada<br>Severo</th>
+                    <th>Impacto<br>Patrimonio</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>BANCIEN</td>
+                    <td class="text-right">1.78%</td>
+                    <td class="text-right">3.28%</td>
+                    <td class="text-right">4.78%</td>
+                    <td class="text-right">$38.5M</td>
+                    <td class="risk-medium">17.2%</td>
+                </tr>
+                <tr>
+                    <td>BANCO W</td>
+                    <td class="text-right">4.03%</td>
+                    <td class="text-right">5.53%</td>
+                    <td class="text-right">7.03%</td>
+                    <td class="text-right">$60.7M</td>
+                    <td class="risk-low">11.5%</td>
+                </tr>
+                <tr>
+                    <td>BANCOOMEVA</td>
+                    <td class="text-right">6.43%</td>
+                    <td class="text-right">7.93%</td>
+                    <td class="text-right">9.43%</td>
+                    <td class="text-right">$183.3M</td>
+                    <td class="risk-high">34.5%</td>
+                </tr>
+                <tr>
+                    <td>BANCO FALABELLA</td>
+                    <td class="text-right">4.52%</td>
+                    <td class="text-right">6.02%</td>
+                    <td class="text-right">7.52%</td>
+                    <td class="text-right">$172.1M</td>
+                    <td class="risk-medium">18.8%</td>
+                </tr>
+                <tr>
+                    <td>BANCAMÍA</td>
+                    <td class="text-right">5.42%</td>
+                    <td class="text-right">6.92%</td>
+                    <td class="text-right">8.42%</td>
+                    <td class="text-right">$78.2M</td>
+                    <td class="risk-medium">20.7%</td>
+                </tr>
+                <tr>
+                    <td>BANCO MUNDO MUJER</td>
+                    <td class="text-right">5.60%</td>
+                    <td class="text-right">7.10%</td>
+                    <td class="text-right">8.60%</td>
+                    <td class="text-right">$110.3M</td>
+                    <td class="risk-medium">21.5%</td>
+                </tr>
+                <tr>
+                    <td>LULO BANK</td>
+                    <td class="text-right">5.21%</td>
+                    <td class="text-right">6.71%</td>
+                    <td class="text-right">8.21%</td>
+                    <td class="text-right">$19.0M</td>
+                    <td class="risk-low">4.8%</td>
+                </tr>
+                <tr>
+                    <td>BANCO PICHINCHA</td>
+                    <td class="text-right">1.30%</td>
+                    <td class="text-right">2.80%</td>
+                    <td class="text-right">4.30%</td>
+                    <td class="text-right">$54.2M</td>
+                    <td class="risk-medium">13.4%</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <p><strong>Conclusiones del Stress Test:</strong></p>
+        <ul>
+            <li><strong>BANCOOMEVA</strong> presenta el mayor riesgo relativo con impacto del 34.5% sobre patrimonio en escenario severo</li>
+            <li><strong>BANCIEN</strong> sufre pérdidas del 17.2% debido a su alto apalancamiento</li>
+            <li><strong>BANCO MUNDO MUJER</strong> resistiría el escenario severo con absorción del 21.5%, manteniendo solvencia</li>
+            <li><strong>BANCO W</strong> presenta el mejor perfil de resiliencia con impacto del 11.5%</li>
+        </ul>
+
+        <!-- RECOMENDACIONES ESTRATÉGICAS -->
+        <h2>8. RECOMENDACIONES ESTRATÉGICAS Y LÍMITES OPERATIVOS</h2>
+        
+        <h3>8.Framework de Covenants y Triggers</h3>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th>Indicador</th>
+                    <th>Alerta Amarilla</th>
+                    <th>Alerta Roja</th>
+                    <th>Acción Automática</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>ICV</td>
+                    <td>Aumento > 150bp vs trimestre anterior</td>
+                    <td>ICV > 8% o aumento > 300bp</td>
+                    <td>Reducir exposición 50%</td>
+                </tr>
+                <tr>
+                    <td>ROE</td>
+                    <td>1 trimestre negativo</td>
+                    <td>2 trimestres consecutivos negativos</td>
+                    <td>Congelar nuevas inversiones</td>
+                </tr>
+                <tr>
+                    <td>Apalancamiento</td>
+                    <td>Aumento > 1.0x vs año anterior</td>
+                    <td>Apalancamiento > 12x</td>
+                    <td>Solicitar plan de capitalización</td>
+                </tr>
+                <tr>
+                    <td>Patrimonio</td>
+                    <td>Caída > 10% anual</td>
+                    <td>Caída > 20% anual</td>
+                    <td>Liquidar posición en 30 días</td>
+                </tr>
+                <tr>
+                    <td>Cobertura</td>
+                    <td>Cobertura < 100%</td>
+                    <td>Cobertura < 80%</td>
+                    <td>Reducir exposición 75%</td>
+                </tr>
+                <tr>
+                    <td>Rating Externo</td>
+                    <td>Downgrade 1 notch</td>
+                    <td>Downgrade 2+ notches o default</td>
+                    <td>Exit completo</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- CONCLUSIONES -->
+        <h2>9. CONCLUSIONES Y PRÓXIMOS PASOS</h2>
+        
+        <h3>9.1 Conclusiones Principales</h3>
+        
+        <ol>
+            <li><strong>Universo Heterogéneo:</strong> El grupo de 8 emisores presenta perfiles de riesgo extremadamente diversos, desde BANCO MUNDO MUJER (Rating A+) hasta BANCO PICHINCHA (Rating B+ con riesgo crítico).</li>
+            
+            <li><strong>Concentración Recomendada:</strong> Solo 3 emisores (BANCO MUNDO MUJER, BANCO W, BANCIEN) califican para posiciones significativas en portafolios conservadores. Esto representa apenas el 37.5% del universo analizado.</li>
+            
+            <li><strong>Limitación de Datos:</strong> La ausencia de provisiones reportadas en datos agregados constituye una restricción metodológica crítica. Cualquier decisión de inversión DEBE complementarse con estados financieros auditados completos.</li>
+            
+            <li><strong>Riesgos Sistémicos:</strong> 5 de 8 emisores (62.5%) presentan ROE promedio negativo, indicando fragilidad estructural en el segmento de bancos pequeños y medianos en Colombia.</li>
+            
+            <li><strong>Stress Testing:</strong> En escenarios severos (ICV +3pp), emisores con alto apalancamiento como BANCIEN y BANCOOMEVA experimentarían erosión patrimonial > 17%, aproximándose a umbrales de insolvencia.</li>
+        </ol>
+        
+        <div class="footer">
+            <p>Documento confidencial - Uso exclusivo del Área de Inversiones</p>
+            <p>Generado automáticamente por Sistema de Análisis de Riesgo Crediticio v3.2</p>
+            <p>© 2025 Área de Riesgos e Inversiones - Todos los derechos reservados</p>
+        </div>
+    </div>
+</body>
+</html>
